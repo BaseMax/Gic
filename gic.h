@@ -40,8 +40,18 @@ typedef enum
 	CommandUnknown			= -1,
 	CommandHelp				= 0,
 	CommandVersion			= 1,
-	CommandClone			= 2,
+	CommandCheck			= 2,
+	CommandClone			= 3,
 } CommandType;
+typedef enum
+{
+	False					= 0,
+	True					= 1,
+} Bool;
+typedef struct
+{
+	Bool installed;
+} GitConfig;
 typedef struct
 {
 	//...
@@ -63,5 +73,11 @@ void arguments_parse(Argument* argument,int argc,char** argv);
 void argument_unknown(Argument* argument);
 void help_init();
 void help_commands();
+Bool git_checks();
+void git_check(GitConfig* config);
+void git_error(GitConfig* config);
+void clone_error();
+void clone_empty();
+void error_show(const char* message);
 
 #endif
