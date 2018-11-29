@@ -31,6 +31,7 @@ int main(int argc,char** argv)
 	else
 	{
 		argument_unknown(argument);
+		return EXIT_FAILURE;//not success
 	}
-	return 0;
+	return EXIT_SUCCESS;//success , 0
 }
