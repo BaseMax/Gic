@@ -12,19 +12,25 @@
 
 int main(int argc,char** argv)
 {
-	Argument argument = arguments_parse(argc,argv);
-	if(argument.type == CommandHelp)
+	Argument *argument=malloc(sizeof(Argument));
+	argument_init(argument);
+	arguments_parse(argument,argc,argv);
+	if(argument->type == CommandHelp)
 	{
 		help_init();
 		help_commands();
 	}
-	else if(argument.type == CommandVersion)
+	else if(argument->type == CommandVersion)
 	{
 		help_init();
 	}
-	else if(argument.type == CommandClone)
+	else if(argument->type == CommandClone)
 	{
-		puts("...");
+		puts(argument->value);
+	}
+	else
+	{
+		argument_unknown(argument);
 	}
 	return 0;
 }
