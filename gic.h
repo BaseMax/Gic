@@ -11,6 +11,7 @@
 #ifndef GIC_LIB
 #define GIC_LIB
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 //#include <unistd.h>
 /*
@@ -35,6 +36,7 @@
  */
 typedef enum
 {
+	CommandUndefined		= -2,
 	CommandUnknown			= -1,
 	CommandHelp				= 0,
 	CommandVersion			= 1,
@@ -48,13 +50,17 @@ typedef struct
 {
 	CommandType 	type;
 	char* 			value;
+	size_t			size;//Size of the value for memory manager
 	CommandFlags 	flags;
 } Argument;
 
 /*
  * Requirement , functions
  */
-Argument arguments_parse(int argc,char** argv);
+void argument_init(Argument* argument);
+//Argument arguments_parse(int argc,char** argv);
+void arguments_parse(Argument* argument,int argc,char** argv);
+void argument_unknown(Argument* argument);
 void help_init();
 void help_commands();
 
