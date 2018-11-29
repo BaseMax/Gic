@@ -24,9 +24,29 @@ int main(int argc,char** argv)
 	{
 		help_init();
 	}
+	else if(argument->type == CommandCheck)
+	{
+		git_checks();
+	}
 	else if(argument->type == CommandClone)
 	{
-		puts(argument->value);
+		if( git_checks() )
+		{
+			if(argument->value)
+			{
+				clone_error();
+				return EXIT_FAILURE;//not success
+			}
+			else
+			{
+				clone_empty();
+				return EXIT_FAILURE;//not success
+			}
+		}
+		else
+		{
+			return EXIT_FAILURE;//not success
+		}
 	}
 	else
 	{
