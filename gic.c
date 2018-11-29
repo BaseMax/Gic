@@ -1,3 +1,13 @@
+/**
+*
+* @Name : Gic
+* @Version : 1.0
+* @Programmer : Max
+* @Date : 2018-11-29
+* @Released under : https://github.com/BaseMax/Gic/blob/master/LICENSE
+* @Repository : https://github.com/BaseMax/Gic
+*
+**/
 #include "gic.h"
 
 int main(int argc,char** argv)
