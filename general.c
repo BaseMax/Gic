@@ -25,6 +25,7 @@ void argument_unknown(Argument* argument)
 		printf("    The %s is unknown.",argument->value);
 	}
 	puts(CONSOLE_RESET);
+	puts("");
 }
 void arguments_parse(Argument* argument,int argc,char** argv)
 {
