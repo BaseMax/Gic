@@ -116,11 +116,7 @@ void git_error(GitConfig* config)
 {
 	if(config->installed == False)
 	{
-		puts("");
-		puts(CONSOLE_RED);
-		puts(" Error : git software not ready and available in system environment!");
-		puts(CONSOLE_RESET);
-		puts("");
+		error_show("git software not ready and available in system environment!");
 	}
 }
 Bool git_checks()
