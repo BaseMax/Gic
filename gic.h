@@ -11,6 +11,7 @@
 #ifndef GIC_LIB
 #define GIC_LIB
 #include <stdio.h>
+#include <string.h>
 //#include <unistd.h>
 /*
  * General Value for GIC
@@ -34,6 +35,7 @@
  */
 typedef enum
 {
+	CommandUnknown			= -1,
 	CommandHelp				= 0,
 	CommandVersion			= 1,
 	CommandClone			= 2,
@@ -53,5 +55,7 @@ typedef struct
  * Requirement , functions
  */
 Argument arguments_parse(int argc,char** argv);
+void help_init();
+void help_commands();
 
 #endif
