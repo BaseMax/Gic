@@ -10,44 +10,70 @@
 **/
 #include "gic.h"
 
-Argument arguments_parse(int argc,char** argv)
+void argument_init(Argument* argument)
 {
-	Argument argument;
+	argument->type=CommandUndefined;
+}
+void argument_unknown(Argument* argument)
+{
+	puts("");
+	puts(CONSOLE_GREEN "Git Control (" GIC_VERSION ")");
+	puts(CONSOLE_RED);
+	puts("    Error Command!");
+	if(argument->value)
+	{
+		printf("    The %s is unknown.",argument->value);
+	}
+	puts(CONSOLE_RESET);
+}
+void arguments_parse(Argument* argument,int argc,char** argv)
+{
 	if(argc == 1)
 	{
-		argument.type = CommandHelp;
+		argument->type = CommandHelp;
 	}
 	else
 	{
+		size_t argl=0;
 		for(int i=1;i<argc;i++)
 		{
 			if(i == 1)
 			{
 				if(strcmp(argv[i],"help") == 0)
 				{
-					argument.type=CommandHelp;
+					argument->type=CommandHelp;
 				}
 				else if(strcmp(argv[i],"version") == 0)
 				{
-					argument.type=CommandVersion;
+					argument->type=CommandVersion;
 				}
 				else if(strcmp(argv[i],"clone") == 0)
 				{
-					argument.type=CommandClone;
+					argument->type=CommandClone;
 				}
 				else
 				{
-					argument.type=CommandUnknown;
-					argument.value=argv[i];
+					argument->type=CommandUnknown;
+					argument->value=argv[i];
 				}
 			}
 			else
 			{
-				puts(argv[i]);
+				argl=strlen(argv[i]);
+				if(argument->value)
+				{
+					argument->value=realloc(argument->value,( argument->size=sizeof(char)*( argument->size + argl ) ));
+					strcat(argument->value," ");
+					strcat(argument->value,argv[i]);
+				}
+				else
+				{
+					argument->value=malloc(( argument->size=sizeof(char)*( argl )) );
+					strcpy(argument->value,argv[i]);
+				}
 			}
 		}
 	}
-	return argument;
 }
 void help_init()
 {
